@@ -1,5 +1,90 @@
+import { useRef, useState } from "react";
+import bgImage from "../assets/login-bg.jpg";
+import Header from "./Header";
+import formValidate from "../utils/formValidation";
+
 function LoginPage() {
-  return <div>LoginPage</div>;
+  const [login, setLogin] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
+  const name = useRef(null);
+  const email = useRef(null);
+  const password = useRef(null);
+  function handleFormSubmit(e: object) {
+    e.preventDefault();
+    const validation = formValidate(
+      email?.current?.value,
+      password?.current?.value,
+      name?.current?.value
+    );
+    setErrorMessage(validation);
+  }
+  return (
+    <div className="relative">
+      <div className="absolute">
+        <div className="bg-black h-[100vh] w-[100vw] absolute z-10 opacity-50"></div>
+        <img
+          src={bgImage}
+          alt="Background Image"
+          className="h-[100vh] w-[100vw]"
+        />
+      </div>
+      <Header />
+      <div className="flex items-center justify-center h-[100vh]">
+        <div className="bg-black/75 absolute flex justify-start p-10 w-[20vw] text-white z-20 w">
+          <form action="#">
+            <h2 className="text-3xl font-bold mb-8">
+              {login ? "Sign In" : "Sign Up"}
+            </h2>
+            {!login && (
+              <input
+                ref={name}
+                type="text"
+                name="name"
+                className="bg-inherit border border-white/50 rounded-sm py-4 px-3 outline-none w-full"
+                placeholder="Enter your name."
+              />
+            )}
+            <input
+              ref={email}
+              type="email"
+              name="email"
+              className="bg-inherit border border-white/50 rounded-sm py-4 px-3 outline-none w-full my-5"
+              placeholder="Enter your email Id"
+            />
+
+            <input
+              ref={password}
+              type="password"
+              name="password"
+              className="bg-inherit border border-white/50 rounded-sm py-4 px-3 outline-none w-full"
+              placeholder={login ? "Enter your password" : "Set your password"}
+            />
+            <p className="mt-4 text-red-400 text-sm font-bold">
+              {errorMessage}
+            </p>
+            <button
+              type="submit"
+              className="w-full px-3 py-3 bg-red-500 rounded-sm mt-5 font-bold"
+              onClick={(e) => handleFormSubmit(e)}
+            >
+              {login ? "Sign In" : "Sign Up"}
+            </button>
+            <p className="text-sm mt-4">
+              {login ? "New to Netflix ?" : "Already have an account ?"}
+              <span
+                className="text-base hover:text-red-400 hover:cursor-pointer ml-2"
+                onClick={() => setLogin(!login)}
+              >
+                {login ? "Sign up now." : "Sign in now."}
+              </span>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default LoginPage;
+
+// Do form data valiidation and use useRef hook, and then life's set.
