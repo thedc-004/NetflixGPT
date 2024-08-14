@@ -3,21 +3,60 @@ import bgImage from "../assets/login-bg.jpg";
 import Header from "./Header";
 import formValidate from "../utils/formValidation";
 import { MouseEvent } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 function LoginPage() {
   const [login, setLogin] = useState(true);
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
+
   const name = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+
   function handleFormSubmit(e: MouseEvent<HTMLElement>) {
     e.preventDefault();
+
     const validation = formValidate(
       email.current?.value ?? null,
       password.current?.value ?? null,
       name.current?.value ?? null
     );
     setErrorMessage(validation);
+    if (errorMessage) {
+      return;
+    }
+
+    if (login) {
+      signInWithEmailAndPassword(
+        auth,
+        email.current!.value,
+        password.current!.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          setErrorMessage(error.code + ": " + error.message);
+        });
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current!.value,
+        password.current!.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          setErrorMessage(error.code + ": " + error.message);
+        });
+    }
   }
   return (
     <div className="relative">

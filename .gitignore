@@ -9,4 +9,4 @@ dist
 dist-ssr
 *.local
 .firebase
-firebase.js
+firebase.ts
