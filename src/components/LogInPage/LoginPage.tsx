@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
-import bgImage from "../assets/login-bg.jpg";
+import bgImage from "../../assets/login-bg.jpg";
 import Header from "./Header";
-import formValidate from "../utils/formValidation";
+import formValidate from "../../utils/formValidation";
 import { MouseEvent } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../utils/firebase";
+import { auth } from "../../utils/firebase";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {

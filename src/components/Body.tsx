@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginPage from "./LoginPage";
-import BrowsePage from "./BrowsePage";
+import LoginPage from "./LogInPage/LoginPage";
+import BrowsePage from "./BrowsePage/BrowsePage";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
