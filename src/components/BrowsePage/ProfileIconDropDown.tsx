@@ -1,15 +1,11 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../../utils/firebase";
-import { useNavigate } from "react-router-dom";
 
 function ProfileIconDropDown() {
-  const navigate = useNavigate();
-
   function handleSignOut() {
     signOut(auth)
       .then(() => {
         console.log("Signout");
-        navigate("/");
       })
       .catch((error) => {
         console.log(error);

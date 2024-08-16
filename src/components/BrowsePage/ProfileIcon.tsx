@@ -22,7 +22,7 @@ function ProfileIcon() {
       ref={profilDivRef}
       className="flex gap-2 items-center relative cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setTimeout(() => setIsHovered(false), 500)}
+      onMouseLeave={() => setTimeout(() => setIsHovered(false), 1000)}
       onMouseMove={handleMouseMove}
     >
       <img src={profileIcon} alt="profileIcon" className="rounded" />
