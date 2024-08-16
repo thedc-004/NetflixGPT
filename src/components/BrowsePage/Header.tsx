@@ -1,8 +1,7 @@
 import logo from "../../assets/logo.png";
 import { FaSearch } from "react-icons/fa";
 import { IoNotifications } from "react-icons/io5";
-import profilIcon from "../../assets/profileIcon.png";
-import { FaAngleDown } from "react-icons/fa";
+import ProfileIcon from "./ProfileIcon";
 
 function Header() {
   return (
@@ -28,15 +27,12 @@ function Header() {
         <div className="text-xl">
           <IoNotifications />
         </div>
-        <div className="flex gap-2 items-center">
-          <img src={profilIcon} alt="profilIcon" className="rounded" />
-          <div className="text-xl">
-            <FaAngleDown />
-          </div>
-        </div>
+        <ProfileIcon />
       </div>
     </div>
   );
 }
 
 export default Header;
+
+// Solve the bug, and implement signOut functionality
