@@ -6,52 +6,64 @@ import { MouseEvent } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../utils/userSlice";
 
 function LoginPage() {
   const [login, setLogin] = useState(true);
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
-  const name = useRef<HTMLInputElement>(null);
-  const email = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useDispatch();
 
   function handleFormSubmit(e: MouseEvent<HTMLElement>) {
     e.preventDefault();
 
     const validation = formValidate(
-      email.current?.value ?? null,
-      password.current?.value ?? null,
-      name.current?.value ?? null
+      emailRef.current?.value ?? null,
+      passwordRef.current?.value ?? null,
+      nameRef.current?.value ?? null
     );
     setErrorMessage(validation);
     if (errorMessage) {
       return;
     }
-
     if (login) {
       signInWithEmailAndPassword(
         auth,
-        email.current!.value,
-        password.current!.value
+        emailRef.current!.value,
+        passwordRef.current!.value
       )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-        })
+        .then(() => {})
         .catch((error) => {
           setErrorMessage(error.code + ": " + error.message);
+          return;
         });
     } else {
       createUserWithEmailAndPassword(
         auth,
-        email.current!.value,
-        password.current!.value
+        emailRef.current!.value,
+        passwordRef.current!.value
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          return updateProfile(user, {
+            displayName: nameRef.current!.value,
+          })
+            .then(() => {
+              const displayName = nameRef.current!.value;
+              dispatch(addUser({ displayName }));
+            })
+            .catch((error) => {
+              console.log("Didn't happened");
+              console.log(error);
+            });
         })
         .catch((error) => {
           setErrorMessage(error.code + ": " + error.message);
@@ -77,7 +89,7 @@ function LoginPage() {
             </h2>
             {!login && (
               <input
-                ref={name}
+                ref={nameRef}
                 type="text"
                 name="name"
                 className="bg-inherit border border-white/50 rounded-sm py-4 px-3 outline-none w-full"
@@ -85,7 +97,7 @@ function LoginPage() {
               />
             )}
             <input
-              ref={email}
+              ref={emailRef}
               type="email"
               name="email"
               className="bg-inherit border border-white/50 rounded-sm py-4 px-3 outline-none w-full my-5"
@@ -93,7 +105,7 @@ function LoginPage() {
             />
 
             <input
-              ref={password}
+              ref={passwordRef}
               type="password"
               name="password"
               className="bg-inherit border border-white/50 rounded-sm py-4 px-3 outline-none w-full"

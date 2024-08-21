@@ -11,18 +11,17 @@ function Router() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, displayName, email } = user;
         dispatch(addUser({ uid, displayName, email }));
         navigate("/browse");
-        console.log(user);
       } else {
         dispatch(removerUser());
         navigate("/");
-        console.log("It's logged out");
       }
     });
+    return () => unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
