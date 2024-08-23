@@ -5,7 +5,7 @@ import ProfileIcon from "./ProfileIcon";
 
 function Header() {
   return (
-    <div className="flex justify-between items-center px-5 py-3 bg-gradient-to-b from-black to-white text-white">
+    <div className="flex fixed z-10 w-full justify-between items-center px-5 py-3 bg-gradient-to-b from-black to-transparent text-white">
       <div>
         <img src={logo} alt="Logo" className="w-36" />
       </div>
