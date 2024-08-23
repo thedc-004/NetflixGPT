@@ -10,7 +10,7 @@ function useGetMovieList() {
     fetch(MOVIE_LIST_API, API_OPTIONS)
       .then((response) => response.json())
       .then((response) => {
-        dispatch(addMovies(response.results));
+        dispatch(addMovies({ arr: response.results, title: "Now Playing" }));
       })
       .catch((err) => console.error(err));
 

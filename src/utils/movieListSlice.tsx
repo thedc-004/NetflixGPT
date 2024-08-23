@@ -17,14 +17,19 @@ export interface movieTrailerObj {
   type: string;
 }
 
-const movieDataArr: Array<movieDataInterface> = [];
+export interface MovieListItem {
+  title: string;
+  arr: Array<movieDataInterface>;
+}
+
+const movieDataArr: Array<MovieListItem> = [];
 
 const movieListSlice = createSlice({
-  name: "movieListSlice",
+  name: "movieListsSlice",
   initialState: movieDataArr,
   reducers: {
-    addMovies: (_state, action) => {
-      return action.payload;
+    addMovies: (state, action) => {
+      state.push(action.payload);
     },
   },
 });
