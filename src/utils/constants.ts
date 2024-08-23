@@ -9,3 +9,5 @@ export const API_OPTIONS = {
 
 export const MOVIE_LIST_API =
   "https://api.themoviedb.org/3/movie/now_playing?page=1";
+
+export const POSTER_CDN = "https://image.tmdb.org/t/p/w500/";

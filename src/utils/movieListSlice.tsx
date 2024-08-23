@@ -4,6 +4,7 @@ export interface movieDataInterface {
   original_title: string | null;
   id: number | null;
   overview: string;
+  poster_path: string;
 }
 
 export interface mainMovieObjInterface {

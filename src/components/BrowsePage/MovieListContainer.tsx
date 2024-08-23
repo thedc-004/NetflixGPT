@@ -8,7 +8,7 @@ function MovieListContainer() {
   );
   console.log(movieListArray);
   return (
-    <div>
+    <div className="bg-black text-white px-24">
       {movieListArray.map((item) => {
         return <MovieList movieObj={item} key={item?.arr[0]?.id} />;
       })}

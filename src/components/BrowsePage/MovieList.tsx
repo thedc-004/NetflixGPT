@@ -1,17 +1,17 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../utils/appStore";
 import { movieDataInterface, MovieListItem } from "../../utils/movieListSlice";
+import MovieCard from "./MovieCard";
 
 function MovieList({ movieObj }: { movieObj: MovieListItem }) {
-  const movieList = useSelector((store: RootState) => store?.movieListReducer);
-
   const { title, arr } = movieObj;
 
   return (
     <div>
-      {arr.map((movie: movieDataInterface) => (
-        <div key={movie.id}>{movie.original_title}</div>
-      ))}
+      <h2 className="text-2xl font-bold mb-5">{title}</h2>
+      <div className="flex overflow-x-scroll">
+        {arr.map((movie: movieDataInterface) => {
+          return <MovieCard movieObj={movie} />;
+        })}
+      </div>
     </div>
   );
 }
