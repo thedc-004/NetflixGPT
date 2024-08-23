@@ -6,7 +6,10 @@ import useGetMovieList from "../../hooks/useGetMovieList.tsx";
 import MovieListContainer from "./MovieListContainer.tsx";
 
 function BrowsePage() {
-  useGetMovieList();
+  useGetMovieList("now_playing");
+  useGetMovieList("upcoming");
+  useGetMovieList("popular");
+  useGetMovieList("top_rated");
 
   const movieList = useSelector((state: RootState) => state?.movieListReducer);
 
