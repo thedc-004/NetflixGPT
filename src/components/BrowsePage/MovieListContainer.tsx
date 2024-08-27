@@ -8,7 +8,7 @@ function MovieListContainer() {
   );
   return (
     <div className="bg-black text-white px-24">
-      <div className="-mt-64 relative z-50">
+      <div className="-mt-64 relative z-10">
         {movieListArray.map((item, index) => {
           return <MovieList movieObj={item} key={"movieList0" + index} />;
         })}
