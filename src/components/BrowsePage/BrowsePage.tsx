@@ -17,7 +17,8 @@ function BrowsePage() {
   return (
     <div>
       <div>
-        {movieList.length !== 0 && (
+        {movieList.length !== 0 &&
+        movieList?.filter((item) => item.title === "Now Playing")[0]?.arr[0] ? (
           <>
             <MainContainer
               mainMovieObj={
@@ -27,7 +28,7 @@ function BrowsePage() {
             />
             <MovieListContainer />
           </>
-        )}
+        ) : null}
       </div>
     </div>
   );
